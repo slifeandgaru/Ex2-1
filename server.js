@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
 var port = 8000;
-var router = require('./courses')
+var router = require('./courseRouter')
 app.use("/nodemy",router)
 app.listen(port,function(){ 
-    console.log("running server.js")
+    console.log("Running.js")
 })

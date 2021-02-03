@@ -15,7 +15,7 @@ app.get("/download", function(req, res){
     res.download("./public/image/amazing.jpg","amazing.jpg")
 })
 // Bài 2
-var router = require("./courses")
+var router = require("./courseRouter")
 var router1 = require("./router/router1")
 var router2 = require("./router/router2")
 app.use("/nodemy", router)
