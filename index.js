@@ -12,7 +12,7 @@ app.get("/login", function(req, res) {
     res.sendFile(path.join(__dirname,"/view/login.html"))
 })
 app.get("/download", function(req, res){
-    res.download("./public/image/amazing.jpg","amazing.jpg")
+    res.download("./public/image/amazing.jpg")
 })
 // Bài 2
 var router = require("./courseRouter")
