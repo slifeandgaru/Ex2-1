@@ -1,87 +1,150 @@
 // getting-started.js
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.once('open', function () {
     console.log("Connection successfully");
-  // we're connected!
+    // we're connected!
 });
 
 // tạo bảng data
 let Schema = mongoose.Schema;
 
-let userSchema = new Schema({
-    userName: String,
-    email: String,
-    password: String,
-    age: Number
-})
+// let post = new Schema({
+//     content: String,
+//     title: String,
+//     comment: String,
+// })
 
-// định nghĩa tên bảng
-// tên này khi mà chạy Monggo thì nó sẽ tự động thêm 's' vào sau tên mà mình muốn
-let UserModel = mongoose.model("user", userSchema);
-// tạo 1 bảng ghi
-// các hàm trong mongo 85% luôn trả về  dưới dạng PROMISE 
+// let UserModel = mongoose.model("user", post);
+
+// ----- 1.1 Tạo 2 bản ghi mới -----
 // UserModel.create({
-//     userName: "ta",
-//     email: "ta@gmail.com",
-//     password: "1",
-//     age: 20
-// }).then(function(data){
+//     content: "COVID",
+//     title: "Về quê là bị bế đi cách li",
+//     comment: "Thằng này ý thức kém thế",
+// },{
+//     content: "COVID news",
+//     title: "Sinh viên FPT tự nguyện đi cách li trong KTX",
+//     comment: "Goodjob", 
+// }).then(function (data) {
 //     console.log(data);
-// }).catch(function(err){
+// }).catch(function (err) {
 //     console.log(err);
 // })
 
-// tìm kiếm bản ghi: 2TH
-// TH1: tìm kiếm ko điều kiện là tìm kiếm toàn bộ bản ghi
-
+// ----- 1.2 Tìm toàn bộ bài post -----
 // UserModel.find().then(function(data){
-//     console.log(data, "list user");
-// }).catch(function(err){
-//     console.log(err);
-// })
-
-//TH2: tìm kiếm có điều kiện
+//         console.log(data, "list post");
+//     }).catch(function(err){
+//         console.log(err);
+//     })
+// ----- 1.3 In ra 1 bài post theo điều kiện id -----
 // UserModel.find({
-//     _id: "601a6c3e99d32c16e0cea311"
+//     _id: "601baa1bf9e69e2fb43d7324"
 // }).then(function(data){
-//     console.log(data, "list user");
-// }).catch(function(err){
-//     console.log(err);
-// })
-
-// cập nhật dữ liệu cho 1 bản ghi
+//         console.log(data, "list post");
+//     }).catch(function(err){
+//         console.log(err);
+//     })
+// 
+// ----- 1.4 Cập nhật 1 giá trị của content theo 1 id -----
 // UserModel.updateOne({
 //     // điều kiện bản ghi
-//     _id: "601a6c3e99d32c16e0cea311"
+//     _id: "601baa1bf9e69e2fb43d7323"
 // },{
 //     // giá trị đc cập nhật
-//     password: "something"
+//     content: "COVID Update"
 // }).then((data) =>{
 //     console.log(data);
 // }).catch((err) =>{
-
 // })
-// UpdateMany
-// update tất cả nhưng bản ghi có điều kiện giống nhau
-// UserModel.updateMany({
-//     // điều kiện bản ghi
-//     _id: "601a6c3e99d32c16e0cea311"
-// },{
-//     // giá trị đc cập nhật
-//     password: "something"
-// }).then((data) =>{
+
+// ----- Bonus -----
+// UserModel.deleteMany().then((data) =>{
 //     console.log(data);
-// }).catch((err) =>{
+// }).catch((data) =>{
 
 // })
 
-UserModel.deleteOne({
-    _id: "601a6c3e99d32c16e0cea311"
-}).then((data) =>{
-    console.log(data);
-}).catch((data) =>{
 
+// ---------------------------Bài 2--------------------------
+
+let user = new Schema({
+    username: String,
+    password: String,
+    email: String,
+    age: Number,
+    school: String
 })
+
+let UserModel = mongoose.model("user", user);
+
+// ----- 2.1 tạo 5 bản ghi với nội dung bất kì -----
+// UserModel.create({
+//     username: "Nguyễn Xuân Trường",
+//     password: "1",
+//     email: "NXT@fpt.edu.vn",
+//     age: 20,
+//     school: "FPT University"
+// }, {
+//     username: "Chu Quang Nhật",
+//     password: "2",
+//     email: "CQN@fpt.edu.vn",
+//     age: 20,
+//     school: "FPT University"
+// }, {
+//     username: "Đinh Thị Hồng Anh",
+//     password: "3",
+//     email: "DTHA@gmail.com",
+//     age: 21,
+//     school: "Academy Of Finance"
+// }, {
+//     username: "Vũ Hoàng Anh Long",
+//     password: "4",
+//     email: "VHAL@gmail.com",
+//     age: 20,
+//     school: "Vietnam National Oniversity of Agriculture"
+// }, {
+//     username: "Phạm Thị Hồng",
+//     password: "5",
+//     email: "NXT@fpt.edu.vn",
+//     age: 21,
+//     school: "DaiNam University"
+// }).then(function (data) {
+//     console.log(data);
+// }).catch(function (err) {
+//     console.log(err);
+// })
+// ----- 2.2 Tìm ra 1 bản ghi theo username, password -----
+// ----- ( nếu không tim thấy thì in ra thông báo là không tìm thấy, còn tìm thấy thì in ra thông báo ) -----
+UserModel.find({
+    username: "Phạm Thị Hồng",
+    password: "5"
+}).then(function (data) {
+    console.log(data, "list user");
+}).catch(function (err) {
+    console.log("Không tìm thấy thông tin");
+})
+
+// ----- 2.3 Xóa 1 bản ghi theo id -----
+// UserModel.deleteOne({
+//     _id: "601bb13634b13e15bc77ea23"
+// }).then((data) =>{
+//     console.log(data);
+// }).catch((data) =>{
+
+// })
+// ----- 2.4 Thực hiện tìm và in ra giới hạn chỉ in ra 3 bản ghi -----
+// UserModel.find().limit(3).then(function(data){
+//     console.log(data, "list user");
+// }).catch(function(err){
+//     console.log("errer");
+// })
+// ----- Delete All -----
+// UserModel.deleteMany().then((data) =>{
+//     console.log(data);
+// }).catch((data) =>{
+
+// })
