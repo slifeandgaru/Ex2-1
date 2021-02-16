@@ -1,6 +1,12 @@
 var express = require("express");
 var app = express();
 var path = require("path");
+var bodyParser = require("body-parser");
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+ 
+// parse application/json
+app.use(bodyParser.json())
 var port = 8000
 
 // -------Ex1--------
@@ -15,12 +21,10 @@ app.get("/download", function(req, res){
     res.download("./public/image/amazing.jpg","amazing.jpg")
 })
 // Bài 2
-var router = require("./courseRouter")
-var router1 = require("./router/router1")
-var router2 = require("./router/router2")
-app.use("/nodemy", router)
-app.use("/nodemy", router1)
-app.use("/nodemy", router2)
+var router = require("./router/user")
+
+app.use("/user", router)
+
 
 app.listen(port, function(){ 
     console.log("Open serve successful : localhost: 8000")
