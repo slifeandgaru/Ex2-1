@@ -45,9 +45,21 @@ function updatebyID(id, age){
     })
 }
 
+function deletebyID(id){
+    return UserModel.deleteOne({
+        _id: id
+    })
+    .then(function(data){
+        console.log(data);
+    }).catch(function(err){
+        console.log(err);
+    })
+}
+
 module.exports = {
     createUser: createUser,
     getAllUser: getAllUser,
     getUserById: getUserById,
-    updatebyID: updatebyID
+    updatebyID: updatebyID,
+    deletebyID: deletebyID
 }

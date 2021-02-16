@@ -22,10 +22,20 @@ router.get("/:id", function(req, res){
     })
 })
 
-router.put("/:id/:age", function(req, res){
+router.put("/:id", function(req, res){
     var id = req.params.id
-    var age = req.params.age
+    var age = req.body.age
     userServices.updatebyID(id, age)
+    .then(function(data){
+        res.json(data)
+    }).catch(function(err){
+        res.json(err)
+    })
+})
+
+router.delete("/:id", function(req, res){
+    var id = req.params.id
+    userServices.deletebyID(id)
     .then(function(data){
         res.json(data)
     }).catch(function(err){
