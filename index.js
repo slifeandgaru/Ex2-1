@@ -9,18 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 var port = 8000
 
-// -------Ex1--------
-app.use(express.static("./public"))
-app.get("/", function(req, res){
-    res.sendFile(path.join(__dirname, "./view/home.html"))
-})
-app.get("/login", function(req, res) {
-    res.sendFile(path.join(__dirname,"/view/login.html"))
-})
-app.get("/download", function(req, res){
-    res.download("./public/image/amazing.jpg","amazing.jpg")
-})
-// Bài 2
+
 var router = require("./router/user")
 
 app.use("/user", router)
